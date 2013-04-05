@@ -1,0 +1,37 @@
+TMC Random Chests Features:
+
+  1. Add command to set player chest wand (chestWand) to item in hand
+
+  2. KITS
+     - With player wand, Add Chest as Kit to plugin (punch)
+     - A Wizard will guide admin to set chest's randomized settings
+     - Kits are saved to disk (kit.dat)
+     - Kits are reloaded when plugin is restarted.
+         - Configured kits will be restored with contents when plugin is restarted
+     - Added kits will be locked so that common users cannot modify contents.
+         - An Admin or OP with a Master Wand will be able to modify contents of kit chests.
+         - TODO: Modifications to kitChests will be saved to disk
+
+  3. Random Chests
+     - With player wand, add Chest as a Random Chest (punch)
+     - Add Wizard will allow chests to be connected to a Kit chest
+         - TODO: load kit chests into addToKitPrompt
+     - Random Chests will be saved to disk (chests.dat)
+     - Random Chests will be reloaded when plugin restarts
+         - Missing chests will be restored
+     - Random Chests will load randomized contents based on configuration or kit settings
+     - Right Click (open) Random Chest with player wand will remove chest from plugin
+         - Removed chests will reload with their original contents
+
+  TODO: Nothing under here is done
+  4. Player Placed Chests
+     - Player placed chests will be removed after x minutes (configurable)
+     - Player placed chests will be saved to disk.
+     - Upon reload, all remaining player placed chests will be removed
+
+  5 CardboardBox Tasks:
+     - Verify CardboardBox works with Enchantments
+     - Verify CardboardBox works with Named items
+     - Verify CardboardBox works with Lore Text
+     - Verify CardboardBox works with Entity Heads
+     - Add functionality to CardboardBox to create a head from scratch

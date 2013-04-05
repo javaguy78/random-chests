@@ -1,0 +1,11 @@
+name: TMC Random Chests
+main: com.themaskedcrusader.randomchests.Plugin
+version: Alpha 2.0.4
+
+commands:
+    rc:
+        description: despawns opened chests or respawns despawned chests
+        usage: /rc <despawn|respawn>
+    chestwand:
+        description: Enables item in hand to modify chests
+        usage: /chestwand
