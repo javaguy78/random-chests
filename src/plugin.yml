@@ -1,11 +1,18 @@
-name: TMC Random Chests
+name: tmc-random-chests
 main: com.themaskedcrusader.randomchests.Plugin
 version: Alpha 2.0.4
+description: Add Randomization and kits to chests in game.
+author: masked_crusader
+website: http://dev.bukkit.org/server-mods/tmc-random-chests/
 
 commands:
     rc:
         description: despawns opened chests or respawns despawned chests
         usage: /rc <despawn|respawn>
+        permissions: random-chests.admin
+        permission-message: You must be an admin to use this command
     chestwand:
         description: Enables item in hand to modify chests
         usage: /chestwand
+        permissions: random-chests.admin
+        permission-message: You must be an admin to use this command
