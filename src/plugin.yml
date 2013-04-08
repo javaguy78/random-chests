@@ -1,6 +1,6 @@
 name: tmc-random-chests
 main: com.themaskedcrusader.randomchests.Plugin
-version: Alpha 2.0.4
+version: Alpha 2.0.5
 description: Add Randomization and kits to chests in game.
 author: masked_crusader
 website: http://dev.bukkit.org/server-mods/tmc-random-chests/
