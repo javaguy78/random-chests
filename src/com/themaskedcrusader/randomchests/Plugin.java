@@ -16,30 +16,34 @@
 
 package com.themaskedcrusader.randomchests;
 
+import com.themaskedcrusader.bukkit.Library;
 import com.themaskedcrusader.randomchests.command.CommandListener;
 import com.themaskedcrusader.randomchests.data.KitChests;
 import com.themaskedcrusader.randomchests.data.RandomChests;
 import com.themaskedcrusader.randomchests.listener.ChestListener;
-import com.themaskedcrusader.randomchests.utility.LibLoader;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.logging.Level;
 
 public class Plugin extends JavaPlugin {
-    public final File[] libs =  new File[] {
-            new File(getDataFolder(), "tmc-lib.jar"),
-    };
 
     public void onEnable() {
-        LibLoader.loadLibraries(this);
-        loadDataFromDisk();
-        new ChestListener(this);
-        getLogger().info("TMCs Random Chests Activated!");
+        try{
+            loadDataFromDisk();
+            new ChestListener(this);
+            getLogger().info("TMCs Random Chests Activated!");
+        } catch (NoClassDefFoundError e) {
+            getLogger().log(Level.SEVERE,  "TMC-LIB Library Missing or cannot load: Disabling Plugin.");
+            getLogger().log(Level.SEVERE,  "See install instructions at http://dev.bukkit.org/server-mods/tmc-lib/");
+            getServer().getPluginManager().disablePlugin(this);
+        }
     }
 
     private void loadDataFromDisk() {
+        Library.checkForNewVersion(getServer().getConsoleSender());
         KitChests.loadKitsFromDisk(this);
         RandomChests.loadChestsFromDisk(this);
     }
