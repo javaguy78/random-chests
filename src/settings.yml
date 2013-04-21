@@ -1,14 +1,1 @@
-# THIS FILE IS NOT USED YET. CHANGES COMING SOON.
-#
-# TODO: Add configurations to this file for item min and max durability
-# TODO: Add configurations to this file for item rarity percentage
-#
-# Common = ~75% of the time
-# Uncommon = ~20% of the time
-# Rare = ~5% of the time
-#
-# Item rarity/durability format
-#
-#  <Item ID> | <Rarity> | <Min Durability %> | <Max Durability %>
-#
-#  Durability is ignored for items/blocks that do not have durability.
+check-for-updates: true     # If true: Plugin will check for updates to the required TMC-LIB.
