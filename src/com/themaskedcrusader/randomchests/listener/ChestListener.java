@@ -102,6 +102,7 @@ public class ChestListener implements Listener {
 
                 KitChests.updateKitContents(chest); // VERIFIED!!!
                 player.sendMessage(TMC.WIZARD + "Updated kit inventory");
+                event.setCancelled(true);
 
             } else
 
@@ -112,6 +113,7 @@ public class ChestListener implements Listener {
                     (!KitChests.isKit(chest.getLocation()) || !RandomChests.isRandomChest(chest.getLocation()))) {
 
                 addChestToPlugin(event); // VERIFIED WORKING FOR KITS
+                event.setCancelled(true);
 
             } else
 
@@ -121,6 +123,7 @@ public class ChestListener implements Listener {
             if (canInteract(event, Material.BLAZE_ROD)) {
 
                 echoStatus(event); // VERIFIED WORKING FOR KITS
+                event.setCancelled(true);
 
             } else
 
@@ -131,7 +134,7 @@ public class ChestListener implements Listener {
                 RandomChest random = RandomChests.get(chest.getLocation());
                 ItemStack[] randomized = random.getRandomizedInventory();
 
-                if (RandomChests.hasBeenOpened(chest.getLocation())) {
+                if (!RandomChests.hasBeenOpened(chest.getLocation())) {
                     ((Chest) event.getClickedBlock().getState()).getInventory().setContents(randomized);
                 }
                 RandomChests.popChest(chest);

@@ -22,6 +22,7 @@ import com.themaskedcrusader.randomchests.command.CommandListener;
 import com.themaskedcrusader.randomchests.data.KitChests;
 import com.themaskedcrusader.randomchests.data.RandomChests;
 import com.themaskedcrusader.randomchests.listener.ChestListener;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -49,6 +50,8 @@ public class Plugin extends JavaPlugin {
         RandomChests.loadChestsFromDisk(this);
         if (Settings.getConfig().getBoolean("check-for-updates")) {
             Library.checkForNewVersion(getServer().getConsoleSender());
+        } else {
+            getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "Update Check Disabled: See http://dev.bukkit.org/server-mods/tmc-lib/ for updates");
         }
     }
 
