@@ -38,7 +38,7 @@ public class CommandListener {
     private boolean chestWand(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            if (player.hasPermission(Permissions.ADMIN) || player.isOp()) {
+            if (Permissions.hasPermissions(player)) {
                 if (args.length > 0 && args[0].equalsIgnoreCase("unbind")) {
                     ChestWand.removePlayerWand(player);
                 }
@@ -51,17 +51,16 @@ public class CommandListener {
             sender.sendMessage(TMC.STERN + "Command can only be used by a player in-game");
             return false;
         }
-
     }
 
     private void bindWand(Player player) {
         if (player.getItemInHand().getType() == Material.BLAZE_ROD) {
-            player.sendMessage(TMC.STERN+ "You cannot use a Blaze Rod as a wand");
+            player.sendMessage(TMC.STERN + "You cannot use a Blaze Rod as a wand");
         } else if (player.getItemInHand() == null || player.getItemInHand().getType() == Material.AIR) {
             player.sendMessage(TMC.STERN + "You cannot set your own hand as a wand");
         } else {
             ChestWand.addPlayerWand(player);
-            player.sendMessage(TMC.SUCCESS + "Wand Set...!");
+            player.sendMessage(TMC.SUCCESS + "Wand Set!");
         }
     }
 
@@ -69,7 +68,7 @@ public class CommandListener {
         if (args.length > 0) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                if (!player.hasPermission(Permissions.ADMIN) && !player.isOp()) {
+                if (!Permissions.hasPermissions(player)) {
                     return unauthorized(sender);
                 }
             }

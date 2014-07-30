@@ -23,6 +23,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 public class FileUtils {
     static final String DATA = ".data";
@@ -50,7 +52,7 @@ public class FileUtils {
                 String objects = saveFile.getConfig().getString(fileKey + ".data");
 
                 ByteArrayInputStream bis = new ByteArrayInputStream(objects.getBytes());
-                InputStream in = MimeUtility.decode(bis, ENCODING);
+                GZIPInputStream in = (GZIPInputStream) MimeUtility.decode(bis, ENCODING);
                 ObjectInputStream ois = new ObjectInputStream(in);
 
                 RandomChest chest = (RandomChest) ois.readObject();
@@ -75,7 +77,7 @@ public class FileUtils {
 
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            OutputStream os = MimeUtility.encode(bos, ENCODING);
+            GZIPOutputStream os = (GZIPOutputStream) MimeUtility.encode(bos, ENCODING);
             ObjectOutputStream out = new ObjectOutputStream(os);
             out.writeObject(toSave);
             out.flush();
@@ -109,6 +111,5 @@ public class FileUtils {
             return folder + "/" + fileName;
         }
     }
-
 }
 

@@ -16,11 +16,13 @@
 
 package com.themaskedcrusader.randomchests;
 
+import com.themaskedcrusader.bukkit.Library;
 import com.themaskedcrusader.bukkit.config.Settings;
 import com.themaskedcrusader.randomchests.command.CommandListener;
 import com.themaskedcrusader.randomchests.data.KitChests;
 import com.themaskedcrusader.randomchests.data.RandomChests;
 import com.themaskedcrusader.randomchests.listener.ChestListener;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,9 +30,18 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Plugin extends JavaPlugin {
 
     public void onEnable() {
-        loadDataFromDisk();
-        new ChestListener(this);
-        getLogger().info("TMCs Random Chests Activated!");
+        try {
+            if (Library.javaVersionCompatible()) {
+                loadDataFromDisk();
+                new ChestListener(this);
+                getLogger().info("TMCs Random Chests Activated!");
+
+            } else {
+                getLogger().info(ChatColor.RED + Strings.JAVA_ERROR);
+            }
+        } catch (Error e) {
+            getLogger().info(ChatColor.RED + Strings.TMC_LIB_ERROR);
+        }
     }
 
     private void loadDataFromDisk() {
