@@ -17,7 +17,6 @@
 package com.themaskedcrusader.randomchests;
 
 import com.themaskedcrusader.bukkit.Library;
-import com.themaskedcrusader.bukkit.config.Settings;
 import com.themaskedcrusader.randomchests.command.CommandListener;
 import com.themaskedcrusader.randomchests.data.KitChests;
 import com.themaskedcrusader.randomchests.data.RandomChests;
@@ -45,7 +44,6 @@ public class Plugin extends JavaPlugin {
     }
 
     private void loadDataFromDisk() {
-        Settings.init(this);
         KitChests.loadKitsFromDisk(this);
         RandomChests.loadChestsFromDisk(this);
     }

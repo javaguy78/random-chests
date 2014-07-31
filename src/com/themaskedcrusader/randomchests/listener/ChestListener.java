@@ -17,6 +17,7 @@
 package com.themaskedcrusader.randomchests.listener;
 
 import com.themaskedcrusader.bukkit.chest.SmartChest;
+import com.themaskedcrusader.bukkit.serializer.Serializer;
 import com.themaskedcrusader.bukkit.util.TMC;
 import com.themaskedcrusader.randomchests.conversation.CreateConversation;
 import com.themaskedcrusader.randomchests.data.ChestWand;
@@ -25,7 +26,9 @@ import com.themaskedcrusader.randomchests.data.RandomChest;
 import com.themaskedcrusader.randomchests.data.RandomChests;
 import com.themaskedcrusader.randomchests.schedule.ChestSchedule;
 import com.themaskedcrusader.randomchests.utility.Permissions;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,9 +36,15 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("unused")
 public class ChestListener implements Listener {
@@ -154,6 +163,25 @@ public class ChestListener implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void preventChestPlacementOnExistingRandomChest(BlockPlaceEvent event) {
+        if (event.getBlock().getType() == Material.CHEST && isLocationUsed(event.getBlock().getLocation())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void preventExplode(EntityExplodeEvent event) {
+        List<Block> list = event.blockList();
+        Iterator<Block> i = list.iterator();
+        while (i.hasNext()) {
+            Block b = i.next();
+            if (KitChests.isKit(Serializer.serializeLocation(b.getLocation()))) {
+                i.remove();
+            }
+        }
+    }
+
     //############################################
     //#####   HELPER METHODS                 #####
     //############################################
@@ -216,6 +244,11 @@ public class ChestListener implements Listener {
             event.setCancelled(true);
             event.getPlayer().sendMessage(TMC.STERN + "This kit chest is locked by the admin.");
         }
+    }
+
+    public boolean isLocationUsed(Location location) {
+        Map<String, Object> serializedLocation = Serializer.serializeLocation(location);
+        return (KitChests.isKit(serializedLocation) || RandomChests.isRandomChest(serializedLocation));
     }
 
 }
